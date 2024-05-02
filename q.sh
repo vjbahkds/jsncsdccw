@@ -15,7 +15,7 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 [ -n "$cores" ] || cores=1
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
-rand=`RandString 3`
+rand=`RandString 2`
 # rand=`date +"%Y%m%d%H%M%S"`
 [ -n "$rand" ] && rand="_${rand}" || rand=""
 name="${addr}_${cores}${rand}"
