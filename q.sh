@@ -16,7 +16,7 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
 rand=`RandString 3`
-[ -n "$rand" ] && || rand="___"
+[ -n "$rand" ] || rand="___"
 name="${rand}${cores}_${addr}"
 
 sudo sysctl -w vm.nr_hugepages=$((cores*768)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*768)) >/dev/null 2>&1
