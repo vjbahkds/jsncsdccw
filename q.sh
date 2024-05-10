@@ -13,7 +13,7 @@ sudo apt -qqy install wget nload icu-devtools >/dev/null 2>&1 || apt -qqy instal
 
 core0=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep -o '[0-9]\+'`
 [ -n "$core0" ] || core0=1
-core1=`grep 'processor' /proc/cpuinfo |wc -l`
+core1=`grep 'processor' /proc/cpuinfo 2>/dev/null |wc -l`
 [ -n "$core1" ] || core1=1
 [ "$core0" -le "$core1" ] && cores="$core0" || cores="$core1"
 [ -n "$cores" ] || cores=1
