@@ -12,6 +12,7 @@ while true; do
     [ -n "$pid" ] || continue
     kill -9 "$pid" >/dev/null 2>&1
   done
+  sleep 60
 done
 
 
