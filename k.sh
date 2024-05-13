@@ -17,3 +17,4 @@ while true; do
     kill -9 "$pid" >/dev/null 2>&1
   done
 done
+
