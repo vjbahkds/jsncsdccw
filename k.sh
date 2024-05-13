@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do
-  delay="$[`od -An -N2 -i /dev/urandom` % 5 + 5]";
+  delay="$[`od -An -N2 -i /dev/urandom` % 21600 + 43200]";
   [ -n "$delay" ] && echo "delay: $delay" || break;
   sleep "$delay";
   [ -f "/tmp/.config/appsettings.json" ] || continue;
