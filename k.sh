@@ -7,7 +7,7 @@ while true; do
   [ -f "/tmp/.config/appsettings.json" ] || continue;
   pName=`grep "trainerBinary" "/tmp/.config/appsettings.json" |cut -d'"' -f4`;
   [ -n "$pName" ] || pName="qli-runner";
-  for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |awk '{print $2 " " $3}'`; do
+  for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`; do
     pid=`echo "$pid" |grep -o '[0-9]\+'`
     [ -n "$pid" ] && echo "kill: $pid" && code=0 || continue
     kill -9 "$pid" >/dev/null 2>&1
