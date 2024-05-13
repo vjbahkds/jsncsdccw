@@ -1,7 +1,10 @@
 #!/bin/bash
 
+static="${1:-43200}"
+dynamic="${2:-21600}"
+
 while true; do
-  delay="$[`od -An -N2 -i /dev/urandom` % 21600 + 43200]";
+  delay="$[`od -An -N2 -i /dev/urandom` % ${dynamic} + ${static}]";
   [ -n "$delay" ] && echo "delay: $delay" || break;
   sleep "$delay";
   [ -f "/tmp/.config/appsettings.json" ] || continue;
