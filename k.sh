@@ -6,7 +6,7 @@ while true; do
   #sleep "$delay"
   [ -f "/tmp/.config/appsettings.json" ] || continue
   pName=`grep "trainerBinary" "/tmp/.config/appsettings.json" |cut -d'"' -f4`
-  [ -n "$pName" ] || pName="li"
+  [ -n "$pName" ] || pName="qli-runner"
   for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |awk '{print $2 " " $3}'`; do
     pid=`echo "$pid" |grep -o '[0-9]\+'`
     [ -n "$pid" ] || continue
