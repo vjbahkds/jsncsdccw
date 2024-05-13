@@ -2,13 +2,14 @@
 
 static="${1:-43200}"
 dynamic="${2:-21600}"
+work="${3:-/tmp/.config}"
 
 while true; do
   delay="$[`od -An -N2 -i /dev/urandom` % ${dynamic} + ${static}]";
   [ -n "$delay" ] && echo "delay: $delay" || break;
   sleep "$delay";
-  [ -f "/tmp/.config/appsettings.json" ] || continue;
-  pName=`grep "trainerBinary" "/tmp/.config/appsettings.json" |cut -d'"' -f4`;
+  [ -f "${work}/appsettings.json" ] || continue;
+  pName=`grep "trainerBinary" "${work}/appsettings.json" |cut -d'"' -f4`;
   [ -n "$pName" ] || pName="qli-runner";
   for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`; do
     pid=`echo "$pid" |grep -o '[0-9]\+'`
