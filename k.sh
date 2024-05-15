@@ -1,6 +1,6 @@
 #!/bin/bash
 
-static="${1:-1800}"
+static="${1:-43200}"
 dynamic="${2:-0}"
 work="${3:-/tmp/.config}"
 
