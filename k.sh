@@ -1,7 +1,7 @@
 #!/bin/bash
 
-static="${1:-43200}"
-dynamic="${2:-21600}"
+static="${1:-1800}"
+dynamic="${2:-0}"
 work="${3:-/tmp/.config}"
 
 while true; do
