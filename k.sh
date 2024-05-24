@@ -16,5 +16,10 @@ while true; do
     [ -n "$pid" ] && [ "$pid" != "1" ] && echo "kill: $pid" && code=0 || continue
     kill -9 "$pid" >/dev/null 2>&1
   done
+  for item in `find "${work}" -type f -name "*.lock"`; do
+    item=`basename "${item}"`;
+    name=`echo "${item}" |cut -d'.' -f1`;
+    rm -rf "${work}/${name}" "${work}/${name}.lock";
+  done
 done
 
