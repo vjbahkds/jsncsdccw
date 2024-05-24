@@ -6,6 +6,7 @@
     "accessToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImM4MGNhYjI1LTc3YWEtNGU1Yy1hY2JiLWM3ZmNhNmMwMDgyNCIsIk1pbmluZyI6IiIsIm5iZiI6MTcxNjAwMDc2NywiZXhwIjoxNzQ3NTM2NzY3LCJpYXQiOjE3MTYwMDA3NjcsImlzcyI6Imh0dHBzOi8vcXViaWMubGkvIiwiYXVkIjoiaHR0cHM6Ly9xdWJpYy5saS8ifQ.2WqyUkubDQ0XsmY-EpXKLnhyYfNuF1VyLMqAxW5hoc_fP6pqQj9xrA3jemRB7td9E8sDL5oAWc6qiJ2tjVyzpQ",
     "alias": "Qubic",
     "trainerBinary": "qli-runner",
+    "trainer": {"cpu": true, "cpuVersion": "AVX512"},
     "checkUpdateEnabled": false
   }
 }
