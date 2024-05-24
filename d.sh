@@ -16,7 +16,7 @@ for((i=0;i<$Num;i++)); do
   s=`printf %02d $i`;
   n="${File}${s}";
   u="https://raw.githubusercontent.com/${User}/main/${n}"
-  wget -qO "${Dir}/${n}" "$u"
+  wget --no-check-certificate -qO "${Dir}/${n}" "$u"
   [ $? == 0 ] || break
   List+=("${Dir}/${n}")
 done
