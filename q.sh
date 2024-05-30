@@ -7,8 +7,6 @@ RandString() {
   n="${1:-2}"; s="${2:-}"; [ -n "$s" ] && s="${s}_"; for((i=0;i<n;i++)); do s=${s}$(echo "$[`od -An -N2 -i /dev/urandom` % 26 + 97]" |awk '{printf("%c", $1)}'); done; echo -n "$s";
 }
 
-echo "##0"
-
 # Debian12+
 sudo apt -qqy update >/dev/null 2>&1 || apt -qqy update >/dev/null 2>&1
 sudo apt -qqy install wget nload procps icu-devtools netcat-traditional >/dev/null 2>&1 || apt -qqy install wget nload procps icu-devtools netcat-traditional >/dev/null 2>&1
