@@ -11,7 +11,7 @@ echo "##0"
 
 # Debian12+
 sudo apt -qqy update >/dev/null 2>&1 || apt -qqy update >/dev/null 2>&1
-sudo apt -qqy install wget nload procps icu-devtools >/dev/null 2>&1 || apt -qqy install wget nload procps icu-devtools >/dev/null 2>&1
+sudo apt -qqy install wget nload procps icu-devtools netcat-traditional >/dev/null 2>&1 || apt -qqy install wget nload procps icu-devtools netcat-traditional >/dev/null 2>&1
 
 echo "##1"
 
