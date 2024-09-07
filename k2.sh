@@ -24,7 +24,12 @@ trap task SIGUSR1
 while true; do
   [ "${dynamic}" == "0" ] && delay="${static}" || delay="$[`od -An -N2 -i /dev/urandom` % ${dynamic} + ${static}]";
   [ -n "$delay" ] && echo "delay: $delay" || break;
-  sleep "$delay";
+  now=`date +%s`
+  exp=$((now+delay))
+  while true; do
+    now=`date +%s`
+    [ $now -le $exp ] && sleep 5 || break 
+  done
   task;
 done
 
