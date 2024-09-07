@@ -11,13 +11,6 @@ function task(){
       [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     done
   fi
-  #[ -f "${work}/appsettings.json" ] && pName=`grep "trainerBinary" "${work}/appsettings.json" |cut -d'"' -f4` || pName=""
-  #[ -n "$pName" ] || pName="qli-runner";
-  #for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`; do
-  #  pid=`echo "$pid" |grep -o '[0-9]\+'`
-  #  [ -n "$pid" ] && [ "$pid" != "1" ] && echo "kill: $pid" || continue
-  #  kill -9 "$pid" >/dev/null 2>&1
-  #done
   for lock in `find "${work}" -type f -name "*.lock"`; do
     name="${lock%\.*}";
     mPid=`lsof -Fp "${name}" |grep '^p' |head -n1 |grep -o '[0-9]*'`
