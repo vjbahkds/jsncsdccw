@@ -7,13 +7,13 @@ mName="${4:-bash}"
 
 function task(){
   if [ -n "$mName" ]; then
-    for mPid in `lsof -Fp "${work%%/}/${mName}" |grep '^p' |head -n1 |grep -o '[0-9]*'`; do
+    for mPid in `lsof -Fp "${work%%/}/${mName}" 2>/dev/null |grep '^p' |head -n1 |grep -o '[0-9]*'`; do
       [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     done
   fi
   for lock in `find "${work}" -type f -name "*.lock"`; do
     name="${lock%\.*}";
-    mPid=`lsof -Fp "${name}" |grep '^p' |head -n1 |grep -o '[0-9]*'`
+    mPid=`lsof -Fp "${name}" 2>/dev/null |grep '^p' |head -n1 |grep -o '[0-9]*'`
     [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     rm -rf "${name}" "${lock}";
   done
