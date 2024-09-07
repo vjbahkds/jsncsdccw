@@ -1,6 +1,8 @@
 {
   "Settings": {
-    "baseUrl": "https://mine.qubic.li/",
+    "baseUrl": "wss://wps.qubic.li:443",
+    "useLiveConnection": true,
+    "isPps": true,
     "amountOfThreads": 1,
     "payoutId": null,
     "accessToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6ImM4MGNhYjI1LTc3YWEtNGU1Yy1hY2JiLWM3ZmNhNmMwMDgyNCIsIk1pbmluZyI6IiIsIm5iZiI6MTcxNjc3NzI3MiwiZXhwIjoxNzQ4MzEzMjcyLCJpYXQiOjE3MTY3NzcyNzIsImlzcyI6Imh0dHBzOi8vcXViaWMubGkvIiwiYXVkIjoiaHR0cHM6Ly9xdWJpYy5saS8ifQ.TsY9FwJOyTwGA4aP8hbig_F9wg0SVqmxTe1p_FZvjTYjyI_j7iwsx1iE6iED9ckcYAR5OH8ABK_p7qrP3xIluQ",
