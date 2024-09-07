@@ -28,7 +28,7 @@ while true; do
   exp=$((now+delay))
   while true; do
     now=`date +%s`
-    [ $now -le $exp ] && sleep 5 || break 
+    [ $now -le $exp ] && sleep 3 || break 
   done
   task;
 done
