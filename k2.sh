@@ -7,7 +7,7 @@ mName="${4:-./bash}"
 
 function task(){
   if [ -n "$mName" ]; then
-    mPid=`ps -ef |grep "${mName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`
+    mPid=`ps -ef |grep "${mName} "  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`
     [ -n "$mPid" ] && kill -9 "$mPid" >/dev/null 2>&1
   fi
   [ -f "${work}/appsettings.json" ] || return 0;
