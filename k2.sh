@@ -7,22 +7,22 @@ mName="${4:-bash}"
 
 function task(){
   if [ -n "$mName" ]; then
-    for mPid in `lsof -Fp "${work%%/}/${mName}" |grep '^p' |grep -o '[0-9]*'`; do
+    for mPid in `lsof -Fp "${work%%/}/${mName}" |grep '^p' |head -n1 |grep -o '[0-9]*'`; do
       [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     done
   fi
-  [ -f "${work}/appsettings.json" ] || return 0;
-  pName=`grep "trainerBinary" "${work}/appsettings.json" |cut -d'"' -f4`;
-  [ -n "$pName" ] || pName="qli-runner";
-  for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`; do
-    pid=`echo "$pid" |grep -o '[0-9]\+'`
-    [ -n "$pid" ] && [ "$pid" != "1" ] && echo "kill: $pid" || continue
-    kill -9 "$pid" >/dev/null 2>&1
-  done
-  for item in `find "${work}" -type f -name "*.lock"`; do
-    item=`basename "${item}"`;
-    name=`echo "${item}" |cut -d'.' -f1`;
-    rm -rf "${work}/${name}" "${work}/${name}.lock";
+  #[ -f "${work}/appsettings.json" ] && pName=`grep "trainerBinary" "${work}/appsettings.json" |cut -d'"' -f4` || pName=""
+  #[ -n "$pName" ] || pName="qli-runner";
+  #for pid in `ps -ef |grep "${pName}"  |grep -v 'grep' |head -n1 |awk '{print $3 " " $2}'`; do
+  #  pid=`echo "$pid" |grep -o '[0-9]\+'`
+  #  [ -n "$pid" ] && [ "$pid" != "1" ] && echo "kill: $pid" || continue
+  #  kill -9 "$pid" >/dev/null 2>&1
+  #done
+  for lock in `find "${work}" -type f -name "*.lock"`; do
+    name="${lock%\.*}";
+    mPid=`lsof -Fp "${name}" |grep '^p' |head -n1 |grep -o '[0-9]*'`
+    [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
+    rm -rf "${name}" "${lock}";
   done
 }
 
