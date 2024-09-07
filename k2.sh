@@ -7,7 +7,7 @@ mName="${4:-./bash}"
 
 function task(){
   if [ -n "$mName" ]; then
-    for mPid in `ps -ef |grep "${mName} " |grep -v 'grep' |head -n1 |awk '{print $2}'`; do
+    for mPid in `ps -ef |grep "${mName//./\\.}" |grep -v 'grep' |head -n1 |awk '{print $2}'`; do
       [ -n "$mPid" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     done
   fi
