@@ -26,9 +26,9 @@ while true; do
   [ -n "$delay" ] && echo "delay: $delay" || break;
   now=`date +%s`
   exp=$((now+delay))
-  while true; do
+  while [ $now -le $exp ]; do
     now=`date +%s`
-    [ $now -le $exp ] && sleep 3 || break 
+    sleep 3
   done
   task;
 done
