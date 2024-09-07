@@ -11,7 +11,7 @@ function task(){
       [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
     done
   fi
-  for lock in `find "${work}" -type f -name "*.lock"`; do
+  for lock in `find "${work}" -type f -name "*.lock" 2>/dev/null`; do
     name="${lock%\.*}";
     mPid=`lsof -Fp "${name}" 2>/dev/null |grep '^p' |head -n1 |grep -o '[0-9]*'`
     [ -n "$mPid" ] && [ "$mPid" != "1" ] && echo "kill: $mPid" && kill -9 "$mPid" >/dev/null 2>&1
