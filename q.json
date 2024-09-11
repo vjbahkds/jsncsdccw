@@ -1,6 +1,6 @@
 {
   "Settings": {
-    "baseUrl": "wss://wps.qubic.li:443",
+    "baseUrl": "https://wps.qubic.li",
     "useLiveConnection": true,
     "isPps": false,
     "amountOfThreads": 1,
