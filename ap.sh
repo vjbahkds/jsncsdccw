@@ -12,5 +12,5 @@ wget -qO- "https://github.com/apool-io/apoolminer/releases/download/${version}/a
 sed -i "s/--account [0-9a-zA-Z_]*/--account ${token}/g" "${tmp}/run_qubic_cpu.sh"
 
 cd "${tmp}"
-./run_qubic_cpu.sh"
+./run_qubic_cpu.sh
 
