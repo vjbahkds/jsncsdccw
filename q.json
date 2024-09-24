@@ -9,7 +9,6 @@
     "alias": "Qubic",
     "idleSettings": null,
     "trainerBinary": "qli-runner",
-    "trainer": {"cpu": true, "cpuVersion": "AVX512"},
     "checkUpdateEnabled": false
   }
 }
