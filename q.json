@@ -6,7 +6,6 @@
     "trainer": {
       "cpu": true,
       "cpuName": "qli-runner",
-      "cpuThreads": 1,
       "gpu": false
     },
     "idling": {
