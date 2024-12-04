@@ -9,6 +9,14 @@
       "cpuThreads": 1,
       "gpu": false
     },
+    "idling": {
+      "preCommand": "",
+      "preCommandArguments": "",
+      "postCommand": "",
+      "postCommandArguments": "",
+      "command": "",
+      "arguments": ""
+    },
     "autoUpdate": false
   }
 }
